@@ -1,30 +1,26 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
+// Problema foloseste Smenul lui Mars - vezi Claude AI
 ifstream fin("lumini.in");
 ofstream fout("lumini.out");
-int val, dr, st, n, m, c, maxi, i, j, lumini[200001];
-long long suma;
-int main()
-{
+
+int c, n, m, st, dr;
+long long val, d[200005], cur, suma, maxim;
+
+int main() {
     fin >> c >> n >> m;
-    for (i = 1; i <= m; ++i) {
+    for (int i = 0; i < m; i++) {
         fin >> st >> dr >> val;
-        for (j = st; j <= dr; ++j) {
-            lumini[j] += val;
-        }
+        d[st] += val;
+        d[dr + 1] -= val;
     }
-    for (i = 1; i <= n; ++i) {
-        suma += lumini[i];
-        if (lumini[i] > maxi) {
-            maxi = lumini[i];
-        }
+    for (int i = 1; i <= n; i++) {
+        cur += d[i];
+        suma += cur;
+        if (cur > maxim) maxim = cur;
     }
-    if (c == 1) {
-        fout << suma;
-    }
-    else {
-        fout << maxi;
-    }
+    if (c == 1) fout << suma;
+    else fout << maxim;
     return 0;
 }
